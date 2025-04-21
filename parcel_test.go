@@ -48,12 +48,13 @@ func TestAddGetDelete(t *testing.T) {
 	// get
 	// получите только что добавленную посылку, убедитесь в отсутствии ошибки
 	// проверьте, что значения всех полей в полученном объекте совпадают со значениями полей в переменной parcel
-	NewParcel, err := store.Get(id)
+	newParcel, err := store.Get(id)
 	require.NoError(t, err)
-	assert.Equal(t, parcel.Address, NewParcel.Address)
-	assert.Equal(t, parcel.Client, NewParcel.Client)
-	assert.Equal(t, parcel.CreatedAt, NewParcel.CreatedAt)
-	assert.Equal(t, parcel.Status, NewParcel.Status)
+	assert.Equal(t, parcel.Address, newParcel.Address)
+	assert.Equal(t, parcel.Client, newParcel.Client)
+	assert.Equal(t, parcel.CreatedAt, newParcel.CreatedAt)
+	assert.Equal(t, parcel.Status, newParcel.Status)
+	//assert.Equal(t, parcel.Number, NewParcel.Number) - задала вопрос в github
 
 	// delete
 	// удалите добавленную посылку, убедитесь в отсутствии ошибки
@@ -61,8 +62,8 @@ func TestAddGetDelete(t *testing.T) {
 	err = store.Delete(id)
 	require.NoError(t, err)
 
-	NewParcel, err = store.Get(id)
-	assert.Error(t, err)
+	newParcel, err = store.Get(id)
+	require.Error(t, err)
 
 }
 
@@ -114,7 +115,7 @@ func TestSetStatus(t *testing.T) {
 
 	// set status
 	// обновите статус, убедитесь в отсутствии ошибки
-	err = store.SetStatus(id, "sent")
+	err = store.SetStatus(id, ParcelStatusSent)
 	require.NoError(t, err)
 
 	// check
@@ -164,19 +165,17 @@ func TestGetByClient(t *testing.T) {
 	}
 
 	// get by client
-	storedParcels, err := store.GetByClient(client)   // получите список посылок по идентификатору клиента, сохранённого в переменной client
-	require.NoError(t, err)                           // убедитесь в отсутствии ошибки
-	assert.Equal(t, len(storedParcels), len(parcels)) // убедитесь, что количество полученных посылок совпадает с количеством добавленных
+	storedParcels, err := store.GetByClient(client) // получите список посылок по идентификатору клиента, сохранённого в переменной client
+	require.NoError(t, err)                         // убедитесь в отсутствии ошибки
+	assert.Len(t, storedParcels, len(parcels))      // убедитесь, что количество полученных посылок совпадает с количеством добавленных
 
 	// check
 	for _, parcel := range storedParcels {
 		// в parcelMap лежат добавленные посылки, ключ - идентификатор посылки, значение - сама посылка
 		// убедитесь, что все посылки из storedParcels есть в parcelMap
 		// убедитесь, что значения полей полученных посылок заполнены верно
+		assert.Contains(t, parcelMap, parcel.Number)
+		assert.Equal(t, parcel, parcelMap[parcel.Number])
 
-		_, ok := parcelMap[parcel.Number]
-		if ok {
-			assert.Equal(t, parcel, parcelMap[parcel.Number])
-		}
 	}
 }
