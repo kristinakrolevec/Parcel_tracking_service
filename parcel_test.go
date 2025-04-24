@@ -54,7 +54,7 @@ func TestAddGetDelete(t *testing.T) {
 	assert.Equal(t, parcel.Client, newParcel.Client)
 	assert.Equal(t, parcel.CreatedAt, newParcel.CreatedAt)
 	assert.Equal(t, parcel.Status, newParcel.Status)
-	//assert.Equal(t, parcel.Number, NewParcel.Number) - задала вопрос в github
+	assert.Equal(t, id, newParcel.Number)
 
 	// delete
 	// удалите добавленную посылку, убедитесь в отсутствии ошибки
