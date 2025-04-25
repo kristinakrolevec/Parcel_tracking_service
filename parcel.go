@@ -14,7 +14,7 @@ func NewParcelStore(db *sql.DB) ParcelStore {
 
 func (s ParcelStore) Add(p Parcel) (int, error) {
 	// реализуйте добавление строки в таблицу parcel, используйте данные из переменной p
-	NewParcel, err := s.db.Exec("INSERT INTO parcel (client, status, address, created_at) values (:client, :status, :address, :created_at)",
+	newParcel, err := s.db.Exec("INSERT INTO parcel (client, status, address, created_at) values (:client, :status, :address, :created_at)",
 		sql.Named("client", p.Client),
 		sql.Named("status", p.Status),
 		sql.Named("address", p.Address),
@@ -23,8 +23,8 @@ func (s ParcelStore) Add(p Parcel) (int, error) {
 		return 0, err
 	}
 	// верните идентификатор последней добавленной записи
-	NewId, err := NewParcel.LastInsertId()
-	return int(NewId), err
+	newId, err := newParcel.LastInsertId()
+	return int(newId), err
 }
 
 func (s ParcelStore) Get(number int) (Parcel, error) {

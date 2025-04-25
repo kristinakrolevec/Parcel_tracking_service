@@ -91,9 +91,9 @@ func TestSetAddress(t *testing.T) {
 
 	// check
 	// получите добавленную посылку и убедитесь, что адрес обновился
-	NewParcel, err := store.Get(id)
+	newParcel, err := store.Get(id)
 	require.NoError(t, err)
-	assert.Equal(t, newAddress, NewParcel.Address)
+	assert.Equal(t, newAddress, newParcel.Address)
 
 }
 
@@ -120,9 +120,9 @@ func TestSetStatus(t *testing.T) {
 
 	// check
 	// получите добавленную посылку и убедитесь, что статус обновился
-	NewParcel, err := store.Get(id)
+	newParcel, err := store.Get(id)
 	require.NoError(t, err)
-	assert.Equal(t, "sent", NewParcel.Status)
+	assert.Equal(t, "sent", newParcel.Status)
 }
 
 // TestGetByClient проверяет получение посылок по идентификатору клиента
