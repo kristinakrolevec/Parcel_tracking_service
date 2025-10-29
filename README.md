@@ -6,7 +6,7 @@
 + изменение адреса доставки,
 + удаление посылки.
 
-### Стэк:
+### Стек:
 
 [![Go](https://img.shields.io/badge/Go-%2300ADD8.svg?&logo=go&logoColor=white)](#)
 [![SQLite](https://img.shields.io/badge/SQLite-%2307405e.svg?logo=sqlite&logoColor=white)](#)
